@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" ng-app>
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Designing Front-end Architectures with AngularUI Router</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<style>
+      body {
+        background: -webkit-radial-gradient(50% 50%, circle cover, rgb(240, 251, 252) 0%, rgb(163, 207, 235) 100%);
+      }
+
+      code {
+        font-size: 120% !important;
+      }
+      .reveal pre {
+        width: 100%;
+      }
+
+      .reveal .pre-override {
+        font-size: inherit;
+        box-shadow: none;
+        line-height: 150%;
+        width: 65%;
+      }
+
+      .reveal h3 {
+        line-height: 125%;
+      }
+
+      .reveal h3 tt {
+        font-size: 110% !important;
+      }
+
+      .reveal h1 {
+        line-height: 200%;
+      }
+
+      .reveal .fragment h3 {
+        margin-top: 7%;
+        margin-bottom: 7%;
+      }
+
+      .reveal .borderless {
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+
+		</style>
+
+		<!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write(
+				'<link rel="stylesheet" href="css/print/' + (
+					window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper'
+				) + '.css" type="text/css" media="print">'
+			);
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+  <body class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>Designing Front-end Architectures with AngularUI Router</h1>
+      </section>
+
+      <section>
+        <!-- Intro -->
+        <section>
+          <h2>Introductories</h2>
+        </section>
+
+        <section>
+          <h1>Hi!</h1>
+
+          <ul>
+            <li>Former lead developer, <a href="http://cakephp.org">CakePHP</a></li>
+            <li>Founder &amp; current lead developer, <a href="http://li3.me">Li3</a> (aka Lithium)</li>
+            <li>
+              Member, <a href="https://angular-ui.github.io/">AngularUI</a>;
+              Lead Developer, <a href="https://angular-ui.github.io/ui-router/">UI-Router</a>
+            </li>
+            <li><a href="http://twitter.com/nateabele">@nateabele</a></li>
+            <li>
+              <a href="http://unionofrad.com">UnionOfRAD.com</a>,
+              <a href="http://unionofrad.com/radify">@radify</a>
+            </li>
+          </ul>
+          
+          <aside class="notes">
+            Thanks for having me, it's an honor to be here.
+          </aside>
+        </section>
+
+        <section>
+          <h4>&lt;plug disposition="shameless" /&gt;</h4>
+
+          <a href="http://unionofrad.com" class="borderless">
+            <img src="img/uor.png" class="borderless" />
+          </a>
+
+          <p>
+            Hypermedia APIs + front-end architectures with AngularJS
+            <img src="img/+1.png" align="bottom" class="borderless" style="width: 30px; margin: 5px;" />
+          </p>
+        </section>
+
+        <section>
+          <h3>Thanks!</h3>
+          <ul>
+            <li class="fragment">Amazingly, I get paid for this stuff</li>
+            <li class="fragment">OS is magical because of people</li>
+            <li class="fragment">I'm not a peasant</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Life Lessons</h2>
+        </section>
+
+        <section>
+          <ul>
+            <li class="fragment">Be humble</li>
+            <li class="fragment">Don't be afraid to feel stupid</li>
+            <li class="fragment">The night is young</li>
+          </ul>
+        </section>
+
+        <section>
+          <img src="img/dogma-quote.jpg" />
+        </section>
+
+        <!-- /Intro -->
+      </section>
+
+      <section>
+        <!-- Outline -->
+        <section>
+          <h2>3 things</h2>
+        </section>
+
+        <section>
+          <ul>
+            <li class="fragment"><h3>Hypermedia &amp; the browser as an app platform</h3></li>
+            <li class="fragment"><h3>UI-Router architecture</h3></li>
+            <li class="fragment"><h3>Application design</h3></li>
+          </ul>
+        </section>
+        <!-- /Outline -->
+      </section>
+
+      <section>
+        <!-- Hypermedia/Browser -->
+        <section>
+          <h2>Problem-solving context</h2>
+        </section>
+
+        <section>
+          <h2>UI === app (SPA++)</h2>
+        </section>
+
+        <section>
+          <h2>Hypermedia?</h2>
+        </section>
+
+        <section>
+          <h2>Hypermedia</h2><br />
+          <ul>
+            <li class="fragment"><strong>REST</strong>: endpoints, methods, the usual</li>
+            <li class="fragment"><strong>Content type</strong>: no special knowledge</li>
+            <li class="fragment"><strong>State machine</strong>: you <em>can</em> get there from here</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Dueling state machines?</h2>
+        </section>
+
+        <section>
+          <h2>
+            Resource state
+            <br /><em>vs.</em><br />
+            Client state
+          </h2>
+        </section>
+
+        <section>
+          <h3>
+            Entr&eacute;
+            <a href="https://en.wikipedia.org/wiki/Memento_pattern">the Memento pattern</a>
+          </h3>
+
+          <ul>
+            <li>Formerly, 'client state' would be the browser itself</li>
+            <li>Now, the browser application traverses resources directly</li>
+          </ul>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h2>UI-Router</h2>
+        </section>
+
+        <section>
+          <ul>
+            <li class="fragment">Nested states</li>
+            <li class="fragment">Nested views</li>
+            <li class="fragment">Hierarchical URL routes</li>
+            <li class="fragment">Animated transitions</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>ngRoute?</h2><br />
+
+          <ul>
+            <li class="fragment">No nesting</li>
+            <li class="fragment">(URL === view) is a bad abstraction</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <img src="img/ui-router-arch.png" class="borderless" />
+        </section>
+
+        <section>
+          <img src="img/states.png" />
+        </section>
+
+        <section>
+          <img src="img/transition-flow.png" class="borderless" />
+        </section>
+
+        <section>
+          <img src="img/transition-flow.png" class="borderless" />
+        </section>
+
+        <section>
+          <pre><code class="js" data-trim ng-non-bindable>
+$stateProvider.state("myState", {
+  controller: "MyStateController",
+  templateUrl: "/templates/my-state.html",
+  // or views: { ... }
+  /* ... */
+});
+</code></pre>
+        </section>
+
+        <section>
+          <pre><code class="js" data-trim ng-non-bindable>
+$stateProvider.state("myState", {
+  /* ... */
+  onEnter: function($stateParams, MyService) { /* ... */ }
+  onExit: function($stateParams, MyService) { /* ... */ },
+  resolve: {
+    dynamicData: function($stateParams, OtherService) {
+      return OtherService.loadAThing(); // promise
+    }
+  }
+});
+</code></pre>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h2>Application design</h2>
+        </section>
+
+        <section>
+          <h3>Application design</h3>
+
+          <ul>
+            <li class="fragment">Slice mockups into views</li>
+            <li class="fragment">Organize into states</li>
+            <li class="fragment">Map parameters to domain objects</li>
+          </ul>
+        </section>
+
+        <section>
+          <img src="img/mockup1.png" class="borderless" />
+        </section>
+        <section>
+          <img src="img/mockup2.png" class="borderless" />
+        </section>
+        <section>
+          <img src="img/mockup3.png" class="borderless" />
+        </section>
+
+        <section>
+          <tt>url: "/maps/{location:crazy-regex}"</tt>
+          <img src="img/gmaps.png" />
+        </section>
+
+        <section>
+          <tt>url: "/maps/{location:Location}"</tt>
+          <img src="img/gmaps-annotated.png" />
+        </section>
+
+        <section>
+          <pre><code class="js" data-trim ng-non-bindable>
+$urlMatcherFactoryProvider.type("Location", {
+  encode: function (loc) {
+    return "@" + [loc.lat, loc.lon, loc.zoom].join(",") + "z";
+  },
+  decode: function (string) {
+    var val = this.pattern.exec(string);
+    return { lat: val[1], lon: val[2], zoom: val[3] };
+  },
+  pattern: /imagination-here/
+});</code></pre>
+        </section>
+
+        <section>
+          <pre><code class="js" data-trim ng-non-bindable>
+$stateProvider.state("map", {
+  url: "/map/{location:Location}",
+  params: {
+    location: { dynamic: true }
+  }
+});</code></pre>
+        </section>
+
+        <section>
+          <pre><code class="js" data-trim ng-non-bindable>
+function MapController($scope, $stateParams) {
+  // Expose for binding to maps directive
+  $scope.location = $stateParams.location;
+  // Changes to map will auto-propagate to URL
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Pro tip</h3>
+          <h5>Enter / exit hooks should be idempotent</h5>
+        </section>
+
+        <section>
+          <h3>Bonus pro tip</h3>
+          <h5>It's proto<em>typal</em>, not proto<em>typical</em></h5>
+        </section>
+
+        <section>
+          <h3>[Insert App Demo Here]</h3>
+        </section>
+      </section>
+
+      <section>
+        <h1>Questions?</h1>
+      </section>
+
+      <section>
+        <h3>Thanks/Contact</h3>
+
+        <ul>
+          <li><a href="http://twitter.com/nateabele">@nateabele</a></li>
+          <li><a href="mailto:nate@unionofrad.com">nate@unionofrad.com</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+  </body>
+</html>
