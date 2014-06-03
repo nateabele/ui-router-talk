@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en" ng-app>
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Designing Front-end Architectures with AngularUI Router</title>
+    <title>Designing Front-end Architectures with AngularUI Router</title>
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
-		<style>
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <style>
       body {
         background: -webkit-radial-gradient(50% 50%, circle cover, rgb(240, 251, 252) 0%, rgb(163, 207, 235) 100%);
       }
@@ -53,24 +53,34 @@
         box-shadow: none;
       }
 
-		</style>
+    </style>
 
-		<!-- For syntax highlighting -->
+    <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write(
-				'<link rel="stylesheet" href="css/print/' + (
-					window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper'
-				) + '.css" type="text/css" media="print">'
-			);
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write(
+        '<link rel="stylesheet" href="css/print/' + (
+          window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper'
+        ) + '.css" type="text/css" media="print">'
+      );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-37317951-2', 'nateabele.github.io');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
 
   <body class="reveal">
     <div class="slides">
@@ -97,8 +107,8 @@
             </li>
             <li><a href="http://twitter.com/nateabele">@nateabele</a></li>
             <li>
-              <a href="http://unionofrad.com">UnionOfRAD.com</a>,
-              <a href="http://unionofrad.com/radify">@radify</a>
+              <a href="http://radify.io">radify.io</a>,
+              <a href="http://twitter.com/radify">@radify</a>
             </li>
           </ul>
           
@@ -110,7 +120,7 @@
         <section>
           <h4>&lt;plug disposition="shameless" /&gt;</h4>
 
-          <a href="http://unionofrad.com" class="borderless">
+          <a href="http://radify.io" class="borderless">
             <img src="img/uor.png" class="borderless" />
           </a>
 
@@ -370,7 +380,7 @@ function MapController($scope, $stateParams) {
 
         <ul>
           <li><a href="http://twitter.com/nateabele">@nateabele</a></li>
-          <li><a href="mailto:nate@unionofrad.com">nate@unionofrad.com</a></li>
+          <li><a href="mailto:nate@radify.io">nate@radify.io</a></li>
         </ul>
       </section>
     </div>
